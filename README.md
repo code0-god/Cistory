@@ -72,7 +72,7 @@
 6. **Pull Request 제출**
    - GitHub에서 `code0-god/Cistory` 저장소 `main` 브랜치로 PR 생성
    - PR 제목 규칙: `[weekN] 과제 제출 - 이름(학번)`
-   - PR 본문은 자동으로 제공되는 템플릿(.github/pull_request_template.md)이 적용됩니다.   
+   - PR 본문은 자동으로 제공되는 템플릿 [pull_request_template.md](.github/pull_request_template.md)이 적용됩니다.   
       &rarr; `- [ ]` 표시는 GitHub에서 체크박스로 렌더링되며, 학생은 체크하거나 답변만 채우면 됩니다.
 
 ---
