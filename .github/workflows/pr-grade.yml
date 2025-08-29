@@ -1,0 +1,69 @@
+name: PR Auto Grading
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  grade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout student code (from fork)
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+          path: student
+
+      - name: Checkout private grader
+        uses: actions/checkout@v4
+        with:
+          repository: org/seminar-admin
+          ref: main
+          token: ${{ secrets.ADMIN_GRADER_TOKEN }}
+          fetch-depth: 0
+          path: grader
+
+      - name: Detect week
+        id: detect
+        run: |
+          title="${{ github.event.pull_request.title }}"
+          week=$(echo "$title" | grep -oE '\[week[0-9]+\]' | tr -d '[]')
+          if [ -z "$week" ]; then
+            week=$(ls -1 weeks | grep -E '^week[0-9]+$' | sort | tail -n1)
+          fi
+          echo "week=$week" >> $GITHUB_OUTPUT
+
+      - name: Build grader image
+        run: |
+          docker build -t grader -f grader/${{ steps.detect.outputs.week }}/Dockerfile grader/${{ steps.detect.outputs.week }}
+
+      - name: Run tests in sandbox
+        id: run_tests
+        run: |
+          set -e
+          docker run --rm --network=none \
+            -v "$PWD/student":/work/student:ro \
+            -v "$PWD/grader":/work/grader:ro \
+            -w /work grader \
+            bash grader/${{ steps.detect.outputs.week }}/run.sh /work/student > result.txt 2>&1 || true
+
+          score=$(grep -oE 'SCORE: [0-9]+/[0-9]+' result.txt | awk '{print $2}')
+          echo "score=${score:-0/0}" >> $GITHUB_OUTPUT
+
+      - name: Post sticky comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          recreate: true
+          message: |
+            ### 자동 채점 결과
+            - 주차: **${{ steps.detect.outputs.week }}**
+            - 점수: **${{ steps.run_tests.outputs.score }}**
+
+            > 로그 요약은 내부 정책에 따라 최소한만 공개됩니다.
