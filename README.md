@@ -70,8 +70,10 @@
    ```
 
 6. **Pull Request 제출**
-   - GitHub에서 `AjouHub/Cistory` 저장소 `main` 브랜치로 PR 생성
+   - GitHub에서 `code0-god/Cistory` 저장소 `main` 브랜치로 PR 생성
    - PR 제목 규칙: `[weekN] 과제 제출 - 이름(학번)`
+   - PR 본문은 자동으로 제공되는 템플릿(.github/pull_request_template.md)이 적용됩니다.   
+      &rarr; `- [ ]` 표시는 GitHub에서 체크박스로 렌더링되며, 학생은 체크하거나 답변만 채우면 됩니다.
 
 ---
 
@@ -102,8 +104,10 @@
 - **브랜치 이름**: `feature/weekN-학번`
 - **PR 제목**: `[weekN] 과제 제출 - 이름(학번)`
 - **커밋 메시지**: [Conventional Commits](https://www.conventionalcommits.org/) 스타일 권장
-  (예: `feat: 배열 평균 계산 함수 구현`)
+   - 간단히 기능이 드러나도록 작성
+   - (ex: `feat: 배열 평균 계산 함수 구현`)
 
+> 자세한 규칙은 [CONTRIBUTING.md](CONTRIBUTING.md) 문서를 참고하세요.
 ---
 
 ## **도움받기**
