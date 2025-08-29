@@ -56,7 +56,7 @@ docs: week2 과제 설명에 입출력 예시 추가
     - ex. [week3] 과제 제출 - 홍길동(202512345)
 
 - **PR 본문은 자동으로 제공되는 템플릿을 사용합니다.**  
-  - 이 템플릿은 저장소의 `.github/pull_request_template.md`에 정의되어 있으며, PR 작성 시 자동으로 불러와집니다.  
+  - 이 템플릿은 저장소의 [.github/pull_request_template.md](.github/pull_request_template.md) 파일에 정의되어 있으며, PR 작성 시 자동으로 불러와집니다.  
   - `- [ ]` 구문은 GitHub에서 실제 **체크박스**로 렌더링되며, 학생은 필요시 직접 체크하거나 내용만 채우면 됩니다.
 
 ### 기본 템플릿 (자동 제공)
