@@ -77,6 +77,12 @@
 
 ---
 
+## **자동 채점 시스템**
+- 모든 PR은 GitHub Actions를 통해 자동 채점됩니다.
+- PR 코멘트에 결과(점수/간단 피드백)가 자동 게시됩니다.
+- 정답/비공개 테스트는 별도의 관리자 저장소(code0-god/Cistory-admin)에서 관리되므로 학생은 볼 수 없습니다.
+- 채점 기준 및 절차는 [grading.md](docs/grading.md)문서를 참고하세요.
+
 ## **주차별 자료**
 - [1주차: Hello, World & Git 첫걸음](docs/weeks/week1.md)
 - [2주차: 변수와 자료형 & git status/log](docs/weeks/week2.md)
