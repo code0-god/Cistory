@@ -1,7 +1,7 @@
 # **설회 Cistory 세미나**
 
 본 저장소는 **C언어 기초**를 배우면서 동시에 **Git/GitHub 협업 방식**을 익히는 12주 세미나용 저장소입니다.  
-진행자는 매주 과제 skeleton 코드를 `main` 브랜치에 업데이트하며, 학생들은 **fork &rarr; pull &rarr; branch &rarr; commit &rarr; push &arr; PR** 흐름을 통해 과제를 수행합니다.
+진행자는 매주 과제 skeleton 코드를 `main` 브랜치에 업데이트하며, 학생들은 **fork &rarr; pull &rarr; branch &rarr; commit &rarr; push &rarr; PR** 흐름을 통해 과제를 수행합니다.
 
 ---
 
