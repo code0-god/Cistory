@@ -1,12 +1,16 @@
+SHELL := /bin/bash
 CC=gcc
 CFLAGS=-Wall -Wextra -std=c17
 
-# 실행할 주차 (기본은 현재 디렉토리에서 호출하는 weekN)
+# 이 Makefile(공통)의 실제 경로 (절대경로)
+MAKEFILE_DIR := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
+
+# 주차명: 주차 폴더에서 실행 시 자동으로 week1, week2 ...
 WEEK ?= $(notdir $(CURDIR))
 
 TARGET=prog
-SRC=$(WEEK)/src/main.c
-BIN=$(WEEK)/$(TARGET)
+SRC := $(MAKEFILE_DIR)/$(WEEK)/src/main.c
+BIN := $(MAKEFILE_DIR)/$(WEEK)/$(TARGET)
 
 .PHONY: build run test clean
 
@@ -17,7 +21,7 @@ run: build
 	$(BIN)
 
 test: build
-	cd $(WEEK) && bash ../run_tests.sh
+	cd $(MAKEFILE_DIR)/$(WEEK) && bash ../run_tests.sh
 
 clean:
-	rm -f $(WEEK)/$(TARGET)
+	rm -f $(BIN)

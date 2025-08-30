@@ -1,8 +1,11 @@
-# 필수 키워드
+##CASE: base_format
 CONTAINS: Hello, World!
-# '이름: ...' 존재
-REGEX: 이름:\s*.+
-# 학번 9자리
-REGEX: 학번:\s*[0-9]{9}
-# 금지 예: 디버그 문자열이 남아있지 않아야 함
+REGEX: ^이름:[[:space:]]*.+$
+REGEX: ^학번:[[:space:]]*[0-9]{9}$
 NOT_REGEX: DEBUG
+##END
+
+##CASE: no_trailing_spaces
+# 줄 끝 공백이 없어야 한다는 추가 규칙 같은 것…
+NOT_REGEX: [[:space:]]+$
+##END
