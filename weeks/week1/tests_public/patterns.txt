@@ -1,0 +1,8 @@
+# 필수 키워드
+CONTAINS: Hello, World!
+# '이름: ...' 존재
+REGEX: 이름:\s*.+
+# 학번 9자리
+REGEX: 학번:\s*[0-9]{9}
+# 금지 예: 디버그 문자열이 남아있지 않아야 함
+NOT_REGEX: DEBUG
