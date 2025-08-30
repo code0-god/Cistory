@@ -1,85 +1,67 @@
 # **Week 1: Hello, World! 출력하기**
 ## **과제 개요**
 - 첫 번째 과제는 C 언어로 **자기소개 문구를 출력**하는 프로그램을 작성하는 것입니다.
-- 이 과제를 통해 C 프로그램의 구조와 GitHub PR 제출 과정을 익힙니다.
+- 이 과제를 통해 C 프로그램의 구조와 **GitHub PR** 제출 과정을 익힙니다.
 
 ---
 
 ## **과제 설명**
 1. `weeks/week1/src/hello.c` 파일을 작성/수정합니다.
-2. 프로그램이 실행되면 **자신의 이름과 학번**를 출력해야 합니다.
-   
+2. 프로그램이 실행 시 **자신의 이름과 학번**을 반드시 출력해야 합니다.
+
+> 소스 파일 이름은 모든 주차에서 `main.c`로 통일합니다.
+
 ---
 
 ## **예제 입출력**
 
 **Ex.1**
-<style>
-  .custom-table {
-    border-collapse: collapse;
-    width: auto; /* 테이블 너비 조절 */
-  }
-  .custom-table th, .custom-table td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: left;
-  }
-  .custom-table th {
-    background-color: #a0a0a0ff; /* 헤더 배경색 */
-    text-align: center;
-    vertical-align: center;
-    width: auto; 
-  }
-</style>
-
-<table class="custom-table">
-  <tbody>
-    <tr>
-      <th style="text-align: center;">Input</th>
-      <td>None</td>
-    </tr>
-    <tr>
-      <th>Output</th>
-      <td>Hello, World! <br> 이름: 홍길동 <br> 학번: 202512345</td>
-    </tr>
-  </tbody>
-</table>
+| Std | Contents |
+|:---:|---|
+| **Input** | `None` |
+| **Output** | Hello, World! <br> 이름: 홍길동 <br> 학번: 202512345 |
 
 **Ex.2**
-
-<table class="custom-table">
-  <tbody>
-    <tr>
-      <th style="text-align: center;">Input</th>
-      <td>None</td>
-    </tr>
-    <tr>
-      <th>Output</th>
-      <td>Hello, World! <br> 이름: 홍길동 <br> 학번: 202512345</td>
-    </tr>
-  </tbody>
-</table>
+| Std | Contents |
+|:---:|---|
+| **Input** | `None` |
+| **Output** | Hello, World! <br> 이름: 정영신 <br> 학번: 202320776 |
 
 ---
 
-## **실행 방법**
+## **실행 / 테스트 방법**
+- 아래 명령은 반드시 **`weeks/week1` 디렉터리에서** 실행합니다.  
+- 이 저장소는 **공용 Makefile**을 사용하므로 각 주차 폴더에서 `make run`/`make test`만 실행하면 됩니다.
 
-```bash
-# 빌드
-make build
+   ```bash
+   # 빌드 후 실행
+   make run
 
-# 실행
-make run
-```
+   # 빌드 -> 자동 테스트(형식 검사, pattern 기반)
+   make test
+   ```
 
-> Makefile이 기본 제공됩니다. `make run` 실행 시 `./hello`가 실행됩니다.
+## **테스트 출력 형식(중요)**
+- 테스트는 케이스 단위로 PASS/FAIL만 표시합니다.
+- Ex.
+   ```bash
+   ===== Pattern Tests (week1) =====
+   CASE base_format: PASS
+   RESULT: PASS (1/1)
+   ```
+   또는
+   ```bash
+   ===== Pattern Tests (week1) =====
+   CASE base_format: FAIL
+   RESULT: FAIL (0/1, failed=1)
+   ```
 
 ---
 
 ## **제한사항**
 - 반드시 `printf` 함수를 사용하여 출력하세요.
-- 출력 형식은 반드시 예제 출력을 따라야 합니다.
-- 소스 파일은 `weeks/week1/src/hello.c`를 사용하세요.
+- 출력 형식은 반드시 예제와 동일한 형식을 따라야 합니다.
+- 소스 파일은 `weeks/week1/src/main.c`를 사용하세요.
 
 ---
 
