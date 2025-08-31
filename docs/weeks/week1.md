@@ -1,14 +1,14 @@
 # **1주차: Hello, World & Git 첫걸음**
 
 ## **학습 목표**
-- **C언어 기초**  
+- **C언어**  
   - C 프로그램의 기본 구조(`main` 함수)
   - `printf`를 활용한 출력
-  - 소스코드 &rarr; 컴파일 &rarr; 실행 과정 이해
-- **Git/GitHub 기초**  
+  - 소스코드 &rarr; 컴파일 &rarr; 실행 흐름 이해
+- **Git/GitHub**  
   - Git 저장소의 개념과 버전 관리 이해
-  - GitHub 저장소 fork & clone
-  - Upstream 설정 및 첫 `commit`과 `push`
+  - fork & clone & upstream 설정
+  - 브랜치 생성/commit/push/PR 기본 워크플로우
 
 ---
 
@@ -23,14 +23,20 @@
    }
     ```
 
-- `#include <stdio.h>` : 표준 입출력 라이브러리 포함
-- `main` 함수 : C 프로그램의 시작점
-- `printf` : 문자열 출력 함수
-- `return 0;` : 프로그램 정상 종료
+- `#include <stdio.h>`: 표준 입출력 라이브러리
+- `main`: 프로그램의 시작점
+- `printf`: 문자열 출력
+- `return 0;`: 프로그램 정상 종료
 
 2. **컴파일 과정**
 - `gcc hello.c -o hello` &rarr; 실행 파일(`hello`) 생성
-- `./hello` &rarr; 실행 결과 확인
+- `./hello` &rarr; 실행
+- Cistory 환경에서는 각 주차 폴더에서 공용 Makefile을 포함해 사용
+    ```
+    cd weeks/week1
+    make run     # 빌드 + 실행 (바이너리: ./prog)   
+    make test    # 빌드 + 공개 테스트(요약 출력)
+    ```
 
 3. **Git 기본 명령어**
 - `git clone <URL>` : 원격 저장소 복제
@@ -55,7 +61,13 @@
     git remote -v   # upstream이 정상 등록되었는지 확인
     ```
 
-3. `weeks/week1` 폴더로 이동 후, `src/hello.c` 파일을 작성합니다.
+3. 과제 브랜치 생성
+    ```
+    git checkout -b feature/week1-학번
+    ```
+
+4. 코드 작성
+   - `weeks/week1` 폴더로 이동 후, `src/main.c` 파일을 작성합니다.
    ```c
    #include <stdio.h>
 
@@ -65,16 +77,25 @@
    }
    ```
 
-4. 코드 작성 후, Git으로 저장하고 원격 저장소에 업로드합니다.
+5. 로컬 실행/테스트
+    ```
+    cd weeks/week1
+    make run   # 실행 결과 확인
+    make test  # 공개 테스트 요약 (CASE/RESULT)
+    ```
+
+6. Commit & Push
+- 코드 작성 후, Git으로 저장하고 원격 저장소에 업로드합니다.
    ```bash
    git checkout -b feature/week1-학번
    git add weeks/week1/src/hello.c
    git commit -m "feat: week1 hello.c 자기소개 출력 구현"
-   git push origin feature/week1-학번
+   git push -u origin feature/week1-학번
    ```
 
-4. GitHub에서 PR을 생성합니다.
-- **대상 저장소**: `code0-god/Cistory`
+4. Pull Request 생성
+- **base**: `code0-god/Cistory` &rarr; `main`
+- compare: `<your-username>/Cistory` &rarr; `feature/week1-학번`
 - **PR 제목**: `[week1] 과제 제출 - 이름(학번)`
 - **PR 본문**: 자동 생성된 템플릿을 채워 제출
 
@@ -105,6 +126,6 @@
 
 ---
 
-> **Tip:**
-> 첫 주는 “Hello, World”를 찍어보는 것이 목표입니다.
-> GitHub PR 과정을 익히는 것이 더 중요하니, 코드 자체는 간단히 작성해도 괜찮습니다.
+> **참고**
+> 로컬 공개 테스트 통과 $\neq$ 최종 만점(비공개 테스트가 존재할 수 있음).   
+> Git 기본 흐름과 상세 명령은 [docs/workflow.md](../workflow.md), [docs/git-cheatsheet.md](../git-cheatsheet.md)를 참고하세요.
