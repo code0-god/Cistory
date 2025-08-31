@@ -1,7 +1,7 @@
 # **Cistory 세미나 Git/GitHub 워크플로우 가이드**
 ## **목적**
 이 문서는 세미나 참여 학생들이 과제를 수행할 때 따라야 하는 **Git/GitHub 기본 워크플로우**를 설명합니다.  
-과제 제출은 **fork &rarr; pull &rarr; branch &rarr; commit &rarr; push &rarr; Pull Request(PR)** 흐름으로 진행됩니다.
+과제 제출은 **pull &rarr; branch &rarr; commit &rarr; push &rarr; Pull Request(PR)** 흐름으로 진행됩니다.
 
 ---
 

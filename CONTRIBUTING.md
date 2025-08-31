@@ -1,6 +1,6 @@
 # **Cistory 세미나 기여 가이드 (Contributing Guide)**
 본 문서는 **설회 Cistory 세미나**에서 학생들이 과제를 제출할 때 따라야 할 규칙을 정리한 가이드입니다.  
-과제 제출은 GitHub의 **fork &rarr; branch &rarr; commit &rarr; push &rarr; Pull Request(PR)** 과정을 통해 이루어집니다.
+과제 제출은 GitHub의 **pull &rarr; branch &rarr; commit &rarr; push &rarr; Pull Request(PR)** 과정을 통해 이루어집니다.
 
 ---
 
@@ -8,44 +8,33 @@
 
 - 중앙 저장소: [code0-god/Cistory](https://github.com/code0-god/Cistory)  
 - 학생은 반드시 **fork** 후 자신의 저장소에서 작업합니다.
-- 모든 과제 제출은 **Pull Request(PR)** 형태로만 받습니다.  
-- `main` 브랜치에 직접 작업하거나 PR을 보내지 마세요. (Branch Protection Rule로 제한됩니다.)
+- 과제 제출은 **Pull Request(PR)** 형태로만 받습니다.  
+- `main` 브랜치에 직접 push하거나 merge하지 마세요(Branch Protection Rule로 제한됩니다.)
 
 ---
 
 ## **브랜치 전략**
-- 각 과제는 별도의 기능 브랜치에서 진행합니다.
-- 브랜치 이름 규칙: `feature/weekN-학번`
+- 각 과제는 주차마다 별도의 기능 브랜치에서 진행합니다.
+- 브랜치 규칙: `feature/weekN-학번`
     ```
     feature/week1-202512345
     feature/week6-202578901
     ```
 - 과제를 마친 후, 반드시 **자신의 fork &rarr; main** 브랜치로 merge 한 뒤, **중앙 저장소(code0-god/Cistory)** 로 PR을 생성하세요.
-
+> main 브랜치로 merge하지 않고 바로 PR을 생성할 수도 있지만, Git 워크 플로우 체득을 위해 main으로 merge 후 PR 생성을 권장합니다. 
 ---
 
 ## **커밋 메시지 규칙**
 - 커밋 메시지는 [Conventional Commits](https://www.conventionalcommits.org/) 스타일을 권장합니다.
-
-### 형식
-`<type>: <subject>`
-
-
-### 주요 타입
-- `feat`: 새로운 기능 추가
-- `fix`: 버그 수정
-- `refactor`: 코드 구조 개선 (기능 변화 없음)
-- `docs`: 문서 수정
-- `test`: 테스트 코드 추가/수정
-- `style`: 코드 스타일/포맷 수정 (공백, 들여쓰기 등)
-
-### 예시
-```
-feat: week1 hello.c 자기소개 출력 구현
-fix: scanf 입력 버그 수정
-refactor: 점수 평균 계산 로직 단순화
-docs: week2 과제 설명에 입출력 예시 추가
-```
+    - 형식: `<type>: <subject>`
+    - 주요 타입: `feat` `fix` `refactor` `docs` `test` `style`
+    - ex.   
+        ```
+        feat: week1 hello.c 자기소개 출력 구현
+        fix: scanf 입력 버그 수정
+        refactor: 점수 평균 계산 로직 단순화
+        docs: week2 과제 설명에 입출력 예시 추가
+        ```
 
 ---
 
@@ -55,11 +44,11 @@ docs: week2 과제 설명에 입출력 예시 추가
 - PR 제목 규칙: `[weekN] 과제 제출 - 이름(학번)`
     - ex. [week3] 과제 제출 - 홍길동(202512345)
 
-- **PR 본문은 자동으로 제공되는 템플릿을 사용합니다.**  
-  - 이 템플릿은 저장소의 [.github/pull_request_template.md](.github/pull_request_template.md) 파일에 정의되어 있으며, PR 작성 시 자동으로 불러와집니다.  
-  - `- [ ]` 구문은 GitHub에서 실제 **체크박스**로 렌더링되며, 학생은 필요시 직접 체크하거나 내용만 채우면 됩니다.
+- **PR 본문은 자동 템플릿을 사용합니다.**  
+  - [.github/pull_request_template.md](.github/pull_request_template.md)
+  - `- [ ]` 구문은 GitHub에서 실제 **체크박스**로 렌더링됩니다.
 
-### 기본 템플릿 (자동 제공)
+### 템플릿 (자동 적용)
 
 ```markdown
 # **Cistory 세미나 과제 제출 PR**
@@ -111,36 +100,27 @@ docs: week2 과제 설명에 입출력 예시 추가
     ## 규칙 확인
     - [x] 브랜치 이름이 `feature/week1-202512345` 규칙을 따르는지 여부
     - [x] PR 제목이 `[week1] 과제 제출 - 홍길동(202512345)` 규칙을 따르는지 여부
+
+    ---
+
+    > **참고:** 자동 채점은 PR 생성/업데이트 시 실행됩니다.  
+    > PR 코멘트에서 점수와 간단 피드백을 확인할 수 있습니다.
     ```
 
 ---
 
-## **자동 채점**
-- 모든 PR은 GitHub Actions를 통해 자동 채점됩니다.
-- PR 코멘트로 결과(점수/간단 피드백)가 게시됩니다.
-- 공개되지 않은 비공개 테스트도 있으므로, **로컬에서 통과했다고 100점이 아닐 수 있습니다.**
-
----
-
-## **코드 리뷰**
-- 세미나 담당자가 PR에 간단한 코멘트를 남길 수 있습니다.
-    - ex. "코드가 잘 작성되었습니다!",  
-    - ex. "이 부분은 함수로 분리하면 더 좋습니다."
-- 일부 주차는 **학생 간 상호 리뷰**가 진행될 수 있습니다.
+## **자동 채점 / 코드 리뷰**
+- PR이 생성/업데이트되면 자동 채점이 실행되고, 결과 요약이 코멘트로 게시됩니다.
+- 관리자가 간단한 코드 리뷰 코멘트를 남길 수 있습니다(필수 아님).
+- 학생들에게 공개되지 않은 비공개 테스트(경계조건 등)가 존재합니다.
 
 ---
 
 ## **유의사항**
-
 - 마감 기한 이후 제출된 PR은 **late submission**으로 표시될 수 있습니다.
 - 함께 배우기 위한 세미나이므로 코드 유사도 검사 등은 시행하지 않지만, 성장을 위해 스스로 해보길 권장합니다. GPT 등 AI의 도움을 받는 것도 좋습니다. 
-- 학번/이름 표기를 반드시 지켜야 채점과 관리가 원활합니다.
-
----
-
-## **도움받기**
-- 문제 발생 시 [Issues](https://github.com/code0-god/Cistory/issues) 탭을 활용하세요.
-- Git/GitHub 기본 사용법은 [docs/workflow.md](docs/workflow.md)를 참고하세요.
+- 브랜치/PR/커밋 규칙을 반드시 지켜주세요.
+- 학번/이름을 정확히 표기해주세요.
 
 ---
 
