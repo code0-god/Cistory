@@ -1,2 +1,15 @@
-# 컴파일된 실행 파일
-**/prog
+# C build
+*.o
+*.obj
+*.exe
+*.out
+*.a
+*.so
+*.dll
+
+# our binaries
+/weeks/**/prog
+
+# mac/linux junk
+.DS_Store
+Thumbs.db

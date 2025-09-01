@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Cistory unified test runner (concise output)
+# Cistory unified test runner (split-file format)
 # - 기본: CASE 단위 PASS/FAIL + 요약만 출력
 # - VERBOSE=1: 상세 사유 출력(diff/룰 실패 등)
 # - STRICT=1: 하나라도 실패하면 종료코드 1 (기본은 0 = 학생 로컬에서 make 에러 안 뜨게 함)
@@ -25,58 +25,84 @@ dbg() { [[ "${DEBUG}" = "1" ]] && echo "[DBG]" "$@"; }
 vout() { [[ "${VERBOSE}" = "1" ]] && printf "%s\n" "$*"; }
 case_name_of() { printf "%s" "$1" | sed -e 's/^[[:space:]]*##CASE:[[:space:]]*//'; }
 
+# inputs.txt에서 특정 케이스 블록 추출
+extract_block() { # $1=file $2=case_name
+  local file="$1" name="$2"
+  [[ -f "$file" ]] || return 1
+  awk -v name="$name" '
+    BEGIN{inblk=0}
+    /^##CASE:[[:space:]]*/{
+      if(inblk) exit;
+      cur=$0; sub(/^##CASE:[[:space:]]*/,"",cur);
+      inblk = (cur==name); next
+    }
+    { if(inblk) print }
+  ' "$file"
+}
+
 # ----------------------------------------
-# Golden mode (##CASE/#INPUT/#EXPECT/##END)
+# Golden mode (expected.txt + inputs.txt)
+# - EXPECTED_FILE: 필수, ##CASE 블록들 포함
+# - INPUTS_FILE:  옵션, 동일 케이스명의 ##CASE 블록이 있으면 표준입력으로 사용
 # ----------------------------------------
 run_golden() {
-  : "${CASES_FILE:?골든 비교 모드에는 CASES_FILE 경로가 필요합니다.}"
-  [[ -f "$CASES_FILE" ]] || { echo "[ERROR] $CASES_FILE 없음"; return 2; }
+  : "${EXPECTED_FILE:?골든 모드에는 EXPECTED_FILE 경로가 필요합니다.}"
+  [[ -f "$EXPECTED_FILE" ]] || { echo "[ERROR] $EXPECTED_FILE 없음"; return 2; }
+
+  # 입력 파일은 선택
+  : "${INPUTS_FILE:=}"
 
   echo "===== Golden Tests ($(basename "$(pwd)")) ====="
 
-  local current_case="" section="" buf_input="" buf_expect="" output=""
+  local current_case="" buf_expect=""
   local total=0 pass=0 fail=0
 
+  emit_case() {
+    [[ -z "$current_case" ]] && return
+    ((total++))
+
+    local in_text="" output="" expn=""
+    if [[ -n "$INPUTS_FILE" && -f "$INPUTS_FILE" ]]; then
+      in_text="$(extract_block "$INPUTS_FILE" "$current_case" || true)"
+    fi
+
+    if [[ -n "$in_text" ]]; then
+      output="$(printf "%s" "$in_text" | "$TARGET" 2>&1 || true)"
+    else
+      output="$("$TARGET" 2>&1 || true)"
+    fi
+
+    if diff -u \
+      <(printf "%s" "$output"     | normalize_lines) \
+      <(printf "%s" "$buf_expect" | normalize_lines) > /tmp/cistory_diff.$$ 2>&1
+    then
+      echo "CASE ${current_case}: PASS"
+      ((pass++))
+    else
+      echo "CASE ${current_case}: FAIL"
+      ((fail++))
+      if [[ "${VERBOSE}" = "1" ]]; then
+        echo "---- diff (expected vs output) ----"
+        cat /tmp/cistory_diff.$$
+      fi
+    fi
+    rm -f /tmp/cistory_diff.$$ || true
+  }
+
   while IFS='' read -r line || [[ -n "$line" ]]; do
-    case "$line" in
-      "##CASE:"*)
-        current_case="$(case_name_of "$line")"
-        section=""; buf_input=""; buf_expect=""
-        ;;
-      "#INPUT")  section="INPUT" ;;
-      "#EXPECT") section="EXPECT" ;;
-      "##END")
-        ((total++))
-        if [[ "$buf_input" == "(없음)" || -z "$buf_input" ]]; then
-          output="$("$TARGET" 2>&1 || true)"
-        else
-          output="$(printf "%s" "$buf_input" | "$TARGET" 2>&1 || true)"
-        fi
-        if diff -u \
-          <(printf "%s" "$output"     | normalize_lines) \
-          <(printf "%s" "$buf_expect" | normalize_lines) > /tmp/cistory_diff.$$ 2>&1
-        then
-          echo "CASE ${current_case}: PASS"
-          ((pass++))
-        else
-          echo "CASE ${current_case}: FAIL"
-          ((fail++))
-          if [[ "${VERBOSE}" = "1" ]]; then
-            echo "---- diff (expected vs output) ----"
-            cat /tmp/cistory_diff.$$
-          fi
-        fi
-        rm -f /tmp/cistory_diff.$$ || true
-        ;;
-      *)
-        case "$section" in
-          "INPUT")  buf_input="${buf_input:+$buf_input$'\n'}$line" ;;
-          "EXPECT") buf_expect="${buf_expect:+$buf_expect$'\n'}$line" ;;
-          *) : ;;
-        esac
-        ;;
-    esac
-  done < <(normalize_lines < "$CASES_FILE")
+    if [[ "$line" == "##CASE:"* ]]; then
+      # 이전 케이스 마감
+      emit_case
+      current_case="$(case_name_of "$line")"
+      buf_expect=""
+      continue
+    fi
+    # 기대 출력 누적
+    buf_expect="${buf_expect:+$buf_expect$'\n'}$line"
+  done < <(normalize_lines < "$EXPECTED_FILE")
+
+  # 마지막 케이스 마감
+  emit_case
 
   if [[ $fail -eq 0 ]]; then
     echo "RESULT: PASS (${pass}/${total})"
@@ -105,27 +131,21 @@ eval_rule() {
 run_pattern_cases() {
   local output="$1"
   local total=0 pass=0 fail=0
-  local in_case=0 case_name="" case_fail=0
+  local in_case=0 case_name="" case_fail=0 line key val
 
   while IFS='' read -r raw || [[ -n "$raw" ]]; do
     line="$(printf "%s" "$raw" | normalize_lines)"
     if [[ "$line" =~ ^##CASE: ]]; then
-      in_case=1
-      case_name="$(case_name_of "$line")"
-      case_fail=0
-      continue
+      in_case=1; case_name="$(case_name_of "$line")"; case_fail=0; continue
     fi
     if [[ "$line" == "##END" ]]; then
       ((total++))
       if [[ $case_fail -eq 0 ]]; then
-        echo "CASE ${case_name}: PASS"
-        ((pass++))
+        echo "CASE ${case_name}: PASS"; ((pass++))
       else
-        echo "CASE ${case_name}: FAIL"
-        ((fail++))
+        echo "CASE ${case_name}: FAIL"; ((fail++))
       fi
-      in_case=0; case_name=""
-      continue
+      in_case=0; case_name=""; continue
     fi
     [[ $in_case -eq 1 ]] || continue
     [[ -z "$line" || "$line" =~ ^[[:space:]]*$ || "$line" =~ ^# ]] && continue
@@ -133,10 +153,9 @@ run_pattern_cases() {
     key="${line%%:*}"
     val="${line#*:}"; val="${val#"${val%%[![:space:]]*}"}"
     if ! eval_rule "$key" "$val" "$output"; then
-      case_fail=1
-      [[ "${VERBOSE}" = "1" ]] && echo "  > rule fail: $key $val"
+      case_fail=1; vout "  > rule fail: $key $val"
     else
-      [[ "${VERBOSE}" = "1" ]] && echo "  > rule pass: $key $val"
+      vout "  > rule pass: $key $val"
     fi
   done
 
@@ -148,8 +167,7 @@ run_pattern_cases() {
 }
 
 run_pattern_single() {
-  local output="$1"
-  local case_fail=0
+  local output="$1" case_fail=0 line key val
 
   while IFS='' read -r raw || [[ -n "$raw" ]]; do
     line="$(printf "%s" "$raw" | normalize_lines)"
@@ -157,9 +175,9 @@ run_pattern_single() {
     key="${line%%:*}"
     val="${line#*:}"; val="${val#"${val%%[![:space:]]*}"}"
     if ! eval_rule "$key" "$val" "$output"; then
-      case_fail=1; [[ "${VERBOSE}" = "1" ]] && echo "  > rule fail: $key $val"
+      case_fail=1; vout "  > rule fail: $key $val"
     else
-      [[ "${VERBOSE}" = "1" ]] && echo "  > rule pass: $key $val"
+      vout "  > rule pass: $key $val"
     fi
   done
 
