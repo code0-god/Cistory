@@ -24,7 +24,6 @@
 │  ├─ pull_request_template.md  # PR 템플릿
 ├─ CONTRIBUTING.md      # 제출 규칙(브랜치/PR/커밋 메시지)
 ├─ docs/                # 운영 문서, 주차별 가이드
-│  ├─ setup.md          # 개발 환경 설정 가이드
 │  ├─ workflow.md       # fork & PR, upstream 동기화, 브랜치 전략
 │  ├─ git-commands.md   # Git 명령어 설명/치트시트
 │  └─ weeks/            # 주차별 학습 가이드
@@ -46,6 +45,7 @@
       ├─ src/main.c
       └─ tests_public/
          ├─ test.conf
+         ├─ inputs.txt
          └─ expected.txt
 ```
 각 주차 디렉터리(weeks/weekN)에서 `make run` / `make test`를 실행하세요. 바이너리 이름은 공통으로 prog 입니다.
