@@ -20,7 +20,7 @@
     feature/week1-202512345
     feature/week6-202578901
     ```
-- 과제를 마친 후, 반드시 **자신의 fork &rarr; main** 브랜치로 merge 한 뒤, **중앙 저장소(code0-god/Cistory)** 로 PR을 생성하세요.
+- 과제를 마친 후, **중앙 저장소(code0-god/Cistory)** 로 PR을 생성하세요.
 > main 브랜치로 merge하지 않고 바로 PR을 생성할 수도 있지만, Git 워크 플로우 체득을 위해 main으로 merge 후 PR 생성을 권장합니다. 
 ---
 
@@ -33,7 +33,6 @@
         feat: week1 hello.c 자기소개 출력 구현
         fix: scanf 입력 버그 수정
         refactor: 점수 평균 계산 로직 단순화
-        docs: week2 과제 설명에 입출력 예시 추가
         ```
 
 ---
@@ -47,6 +46,7 @@
 - **PR 본문은 자동 템플릿을 사용합니다.**  
   - [.github/pull_request_template.md](.github/pull_request_template.md)
   - `- [ ]` 구문은 GitHub에서 실제 **체크박스**로 렌더링됩니다.
+  - `[]` 안에 x를 입력하면 체크됩니다. 
 
 ### 템플릿 (자동 적용)
 

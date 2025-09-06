@@ -72,7 +72,7 @@
 
 3. **PR 본문**
    - 자동으로 제공되는 템플릿 [pull_request_template.md](../.github/pull_request_template.md)이 불러와집니다.
-   - `- [ ]`는 GitHub에서 **체크박스**로 렌더링됩니다.
+   - `- []`는 GitHub에서 **체크박스**로 렌더링됩니다.
    - 각 항목에 맞춰 **체크하거나 작성**하세요.
 
 ---

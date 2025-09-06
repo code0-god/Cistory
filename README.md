@@ -20,8 +20,8 @@
 ├─ README.md        # 세미나 개요 (본 문서)
 ├─ .github/
 │  ├─workflows/
-│  │  ├─ pr-grade.yml           # PR 자동 채점 워크플로우
-│  ├─ pull_reauest_template.md  # PR 템플릿
+│  │  ├─ dispatch-to-admin.yml  # PR 자동 채점 워크플로우
+│  ├─ pull_request_template.md  # PR 템플릿
 ├─ CONTRIBUTING.md      # 제출 규칙(브랜치/PR/커밋 메시지)
 ├─ docs/                # 운영 문서, 주차별 가이드
 │  ├─ setup.md          # 개발 환경 설정 가이드
@@ -55,7 +55,7 @@
 ## **참여 방법 (학생용)**
 
 1. **저장소 Fork**
-   - 본 저장소(`code00god/Cistory`)를 자신의 GitHub 계정으로 `fork`.
+   - 본 저장소(`code0-god/Cistory`)를 자신의 GitHub 계정으로 `fork`.
 
 2. **로컬 Clone & Upstream 설정**
    ```bash
@@ -104,13 +104,13 @@
 - [3주차: 조건문 & branch](docs/weeks/week3.md)
 - [4주차: 반복문 & merge/conflict](docs/weeks/week4.md)
 - [5주차: 함수 & 원격 저장소](docs/weeks/week5.md)
-- [6주차: 배열/문자열 & Pull Request](docs/weeks/week6.md)
-- [7주차: 포인터(1) & git diff](docs/weeks/week7.md)
-- [8주차: 포인터(2) & .gitignore](docs/weeks/week8.md)
-- [9주차: 함수와 포인터 & 워크플로우 복습](docs/weeks/week9.md)
-- [10주차: 구조체 & git revert](docs/weeks/week10.md)
-- [11주차: 파일 입출력 & GitHub Issues](docs/weeks/week11.md)
-- [12주차: 미니 프로젝트 & 종합](docs/weeks/week12.md)
+- [8주차: 배열과 문자열 & Pull Request(PR)](docs/weeks/week8.md)
+- [9주차: 포인터(1) & git diff](docs/weeks/week9.md)
+- [10주차: 포인터(2) & .gitignore](docs/weeks/week10.md)
+- [11주차: 함수와 포인터 & 워크플로우 복습](docs/weeks/week11.md)
+- [12주차: 구조체/공용체 & git revert](docs/weeks/week12.md)
+- [13주차: 동적 메모리 할당 & GitHub Issues](docs/weeks/week13.md)
+- [14주차: 파일 입출력 & 종합](docs/weeks/week14.md)
 
 ---
 
@@ -119,7 +119,7 @@
 - **PR 제목**: `[weekN] 과제 제출 - 이름(학번)`
 - **커밋 메시지**: [Conventional Commits](https://www.conventionalcommits.org/) 스타일 권장
 > 자세한 규칙은 [CONTRIBUTING.md](CONTRIBUTING.md) 문서를 참고하세요.
-> Git 명령은 [docs/git-cheatsheet.md](docs/git-cheatsheet.md)를 참고하세요.
+> Git 명령은 [docs/git-commands.md](docs/git-commands.md)를 참고하세요.
 
 ---
 

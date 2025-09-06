@@ -1,1 +1,0 @@
-# 공통 개발 환경/도구 설치 가이드(WSL/Ubuntu/gcc/gdb/VSCode)
