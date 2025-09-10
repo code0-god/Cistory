@@ -29,7 +29,7 @@
 - `return 0;`: 프로그램 정상 종료
 
 2. **컴파일 과정**
-- `gcc hello.c -o hello` &rarr; 실행 파일(`hello`) 생성
+- `gcc main.c -o hello` &rarr; 실행 파일(`hello`) 생성
 - `./hello` &rarr; 실행
 - Cistory 환경에서는 각 주차 폴더에서 공용 Makefile을 포함해 사용
     ```
@@ -88,8 +88,8 @@
 - 코드 작성 후, Git으로 저장하고 원격 저장소에 업로드합니다.
    ```bash
    git checkout -b feature/week1-학번
-   git add weeks/week1/src/hello.c
-   git commit -m "feat: week1 hello.c 자기소개 출력 구현"
+   git add weeks/week1/src/main.c
+   git commit -m "feat: week1 main.c 자기소개 출력 구현"
    git push -u origin feature/week1-학번
    ```
 
@@ -128,4 +128,4 @@
 
 > **참고**
 > 로컬 공개 테스트 통과 $\neq$ 최종 만점(비공개 테스트가 존재할 수 있음).   
-> Git 기본 흐름과 상세 명령은 [docs/workflow.md](../workflow.md), [docs/git-cheatsheet.md](../git-cheatsheet.md)를 참고하세요.
+> Git 기본 흐름과 상세 명령은 [docs/workflow.md](../workflow.md), [docs/git-commands.md](../git-commands.md)를 참고하세요.
