@@ -1,4 +1,130 @@
 ##CASE: case1
-3 + 5 = 8
+sizeof: int=4, float=4, double=8, char=1, bool=1
+input: a=3, b=5.00
+int div: 0
+float div: 0.60
+sum(int): 8
+sum(float): 8.00
+diff(int): -2
+diff(float): -2.00
+prod(int): 15
+prod(float): 15.00
+mod: 3
+promotion: (char)a + (char)(int)b = 8
 ##CASE: case2
-10 + 20 = 30
+sizeof: int=4, float=4, double=8, char=1, bool=1
+input: a=10, b=20.00
+int div: 0
+float div: 0.50
+sum(int): 30
+sum(float): 30.00
+diff(int): -10
+diff(float): -10.00
+prod(int): 200
+prod(float): 200.00
+mod: 10
+promotion: (char)a + (char)(int)b = 30
+##CASE: case3
+sizeof: int=4, float=4, double=8, char=1, bool=1
+input: a=7, b=2.50
+int div: 3
+float div: 2.80
+sum(int): 9
+sum(float): 9.50
+diff(int): 5
+diff(float): 4.50
+prod(int): 14
+prod(float): 17.50
+mod: 1
+promotion: (char)a + (char)(int)b = 9
+##CASE: case4
+sizeof: int=4, float=4, double=8, char=1, bool=1
+input: a=9, b=4.00
+int div: 2
+float div: 2.25
+sum(int): 13
+sum(float): 13.00
+diff(int): 5
+diff(float): 5.00
+prod(int): 36
+prod(float): 36.00
+mod: 1
+promotion: (char)a + (char)(int)b = 13
+##CASE: case5
+sizeof: int=4, float=4, double=8, char=1, bool=1
+input: a=12, b=5.50
+int div: 2
+float div: 2.18
+sum(int): 17
+sum(float): 17.50
+diff(int): 7
+diff(float): 6.50
+prod(int): 60
+prod(float): 66.00
+mod: 2
+promotion: (char)a + (char)(int)b = 17
+##CASE: case6
+sizeof: int=4, float=4, double=8, char=1, bool=1
+input: a=15, b=3.00
+int div: 5
+float div: 5.00
+sum(int): 18
+sum(float): 18.00
+diff(int): 12
+diff(float): 12.00
+prod(int): 45
+prod(float): 45.00
+mod: 0
+promotion: (char)a + (char)(int)b = 18
+##CASE: case7
+sizeof: int=4, float=4, double=8, char=1, bool=1
+input: a=8, b=2.00
+int div: 4
+float div: 4.00
+sum(int): 10
+sum(float): 10.00
+diff(int): 6
+diff(float): 6.00
+prod(int): 16
+prod(float): 16.00
+mod: 0
+promotion: (char)a + (char)(int)b = 10
+##CASE: case8
+sizeof: int=4, float=4, double=8, char=1, bool=1
+input: a=25, b=4.50
+int div: 6
+float div: 5.56
+sum(int): 29
+sum(float): 29.50
+diff(int): 21
+diff(float): 20.50
+prod(int): 100
+prod(float): 112.50
+mod: 1
+promotion: (char)a + (char)(int)b = 29
+##CASE: case9
+sizeof: int=4, float=4, double=8, char=1, bool=1
+input: a=1, b=3.00
+int div: 0
+float div: 0.33
+sum(int): 4
+sum(float): 4.00
+diff(int): -2
+diff(float): -2.00
+prod(int): 3
+prod(float): 3.00
+mod: 1
+promotion: (char)a + (char)(int)b = 4
+##CASE: case10
+sizeof: int=4, float=4, double=8, char=1, bool=1
+input: a=99, b=1.50
+int div: 99
+float div: 66.00
+sum(int): 100
+sum(float): 100.50
+diff(int): 98
+diff(float): 97.50
+prod(int): 99
+prod(float): 148.50
+mod: 0
+promotion: (char)a + (char)(int)b = 100
